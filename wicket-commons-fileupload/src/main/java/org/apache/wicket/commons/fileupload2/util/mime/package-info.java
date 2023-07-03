@@ -14,36 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.wicket.guice;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import javax.inject.Inject;
-
-import org.apache.wicket.Component;
-import org.apache.wicket.behavior.Behavior;
 
 /**
- * A behavior that will be use injected services
- * 
- * https://issues.apache.org/jira/browse/WICKET-4149
+ * MIME decoder implementation, imported and retailed from
+ * <a href="http://svn.apache.org/repos/asf/geronimo/specs/tags/geronimo-javamail_1.4_spec-1.4/">Apache Geronimo</a>.
  */
-public class JavaxInjectTestBehavior extends Behavior
-{
-	private static final long serialVersionUID = 1L;
-
-	@Inject
-	@Blue
-	private ITestService injectedFieldBlue;
-
-	@Override
-	public void bind(Component component)
-	{
-		super.bind(component);
-
-		assertNotNull(injectedFieldBlue);
-		assertEquals("blue", injectedFieldBlue.getString());
-	}
-
-}
+package org.apache.wicket.commons.fileupload2.util.mime;

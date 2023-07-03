@@ -25,11 +25,10 @@ import java.util.Locale;
 import java.util.Map;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.commons.fileupload2.FileUploadException;
-import org.apache.commons.fileupload2.pub.FileUploadByteCountLimitException;
-import org.apache.commons.fileupload2.pub.FileUploadSizeException;
-import org.apache.commons.fileupload2.pub.FileUploadFileCountLimitException;
-
+import org.apache.wicket.commons.fileupload2.FileUploadException;
+import org.apache.wicket.commons.fileupload2.pub.FileUploadByteCountLimitException;
+import org.apache.wicket.commons.fileupload2.pub.FileUploadSizeException;
+import org.apache.wicket.commons.fileupload2.pub.FileUploadFileCountLimitException;
 import org.apache.wicket.Component;
 import org.apache.wicket.IGenericComponent;
 import org.apache.wicket.IRequestListener;
@@ -256,11 +255,11 @@ public class Form<T> extends WebMarkupContainer
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String UPLOAD_FAILED_RESOURCE_KEY = "uploadFailed";
+	public static final String UPLOAD_FAILED_RESOURCE_KEY = "uploadFailed";
 
-	private static final String UPLOAD_TOO_LARGE_RESOURCE_KEY = "uploadTooLarge";
-	private static final String UPLOAD_SINGLE_FILE_TOO_LARGE_RESOURCE_KEY = "uploadSingleFileTooLarge";
-	private static final String UPLOAD_TOO_MANY_FILES_RESOURCE_KEY = "uploadTooManyFiles";
+	public static final String UPLOAD_TOO_LARGE_RESOURCE_KEY = "uploadTooLarge";
+	public static final String UPLOAD_SINGLE_FILE_TOO_LARGE_RESOURCE_KEY = "uploadSingleFileTooLarge";
+	public static final String UPLOAD_TOO_MANY_FILES_RESOURCE_KEY = "uploadTooManyFiles";
 
 	/**
 	 * Any default IFormSubmittingComponent. If set, a hidden submit component will be rendered
@@ -613,7 +612,6 @@ public class Form<T> extends WebMarkupContainer
 	 * Gets the maximum size for uploads. If null, the setting
 	 * {@link org.apache.wicket.settings.ApplicationSettings#getDefaultMaximumUploadSize()} is used.
 	 *
-	 *
 	 * @return the maximum size
 	 */
 	public final Bytes getMaxSize()
@@ -650,7 +648,7 @@ public class Form<T> extends WebMarkupContainer
 	/**
 	 * Gets maximum size for each file of an upload.
 	 *
-	 * @return
+	 * @return Bytes
 	 */
 	public Bytes getFileMaxSize()
 	{
@@ -749,7 +747,7 @@ public class Form<T> extends WebMarkupContainer
 
 	/**
 	 * THIS METHOD IS NOT PART OF THE WICKET API. DO NOT ATTEMPT TO OVERRIDE OR CALL IT.
-	 *
+	 * <p>
 	 * Handles form submissions.
 	 *
 	 * @see #onFormSubmitted(IFormSubmitter)
@@ -775,7 +773,7 @@ public class Form<T> extends WebMarkupContainer
 
 	/**
 	 * THIS METHOD IS NOT PART OF THE WICKET API. DO NOT ATTEMPT TO OVERRIDE OR CALL IT.
-	 *
+	 * <p>
 	 * Handles form submissions.
 	 *
 	 * @param submitter
@@ -1521,8 +1519,8 @@ public class Form<T> extends WebMarkupContainer
 	 * <p>
 	 * Don't forget to call super.onFileUploadException(e, model) at the end of your method.
 	 *
-	 * @param e
-	 * @param model
+	 * @param e FileUploadException
+	 * @param model {@code Map<String, Object>} containing info to be interpolated into keys
 	 */
 	protected void onFileUploadException(final FileUploadException e,
 		final Map<String, Object> model)
@@ -1532,14 +1530,14 @@ public class Form<T> extends WebMarkupContainer
 			String msg = getString(UPLOAD_SINGLE_FILE_TOO_LARGE_RESOURCE_KEY, Model.ofMap(model));
 			error(msg);
 		}
-		else if (e instanceof FileUploadSizeException)
-		{
-			String msg = getString(UPLOAD_TOO_LARGE_RESOURCE_KEY, Model.ofMap(model));
-			error(msg);
-		}
 		else if (e instanceof FileUploadFileCountLimitException)
 		{
 			String msg = getString(UPLOAD_TOO_MANY_FILES_RESOURCE_KEY, Model.ofMap(model));
+			error(msg);
+		}
+		else if (e instanceof FileUploadSizeException)
+		{
+			String msg = getString(UPLOAD_TOO_LARGE_RESOURCE_KEY, Model.ofMap(model));
 			error(msg);
 		}
 		else

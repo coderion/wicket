@@ -14,40 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.wicket.guice;
-
-import javax.inject.Inject;
-
-import org.apache.wicket.Component;
-import org.apache.wicket.injection.Injector;
-import org.apache.wicket.util.io.IClusterable;
 
 /**
- * Tests injection of services in classes which do not extend {@link Component}
+ * Implementations and exceptions utils.
  */
-@SuppressWarnings("serial")
-public class JavaxInjectTestNoComponent implements IClusterable, TestNoComponentInterface
-{
-
-	@Inject
-	@Red
-	private ITestService testService;
-
-	/**
-	 * 
-	 * Construct.
-	 */
-	public JavaxInjectTestNoComponent()
-	{
-		Injector.get().inject(this);
-	}
-
-	/**
-	 * @return if injection works should return {@link ITestService#RESULT_RED}
-	 */
-	@Override
-	public String getString()
-	{
-		return testService.getString();
-	}
-}
+package org.apache.wicket.commons.fileupload2.impl;
